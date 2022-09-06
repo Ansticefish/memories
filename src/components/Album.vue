@@ -63,54 +63,48 @@ export default {
 
 <style lang="scss" scoped>
 
-
-
-
-
-%background-img {
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
 %img {
   width: 80%;
-  max-height: 50%;
+  max-height: 380px;
   object-fit: cover;
+  border-radius: 13% 0;
 }
 
 %caption {
-  margin-top: 5px;
+  margin-top: -5px;
   padding: 5px;
   width: fit-content;
+  max-width: 70%;
   background-color: rgb(212, 236, 236);
   color: rgb(130, 151, 163);
 }
 
 .wrapper {
   margin: 30px auto;
-  width: 90vw;
-  height: 90vh;
+  width: 95vw;
   max-width: 1100px;
   display: grid;
-  grid-template-columns: 1fr 0.5fr 0.2fr 0.5fr 1fr;
+  grid-template-columns: 1.5fr 1px 1.5fr;
   &__left {
-    grid-area: 1/1/2/4;
-    border: 5px solid rgb(202, 112, 100);
-    border-right: none;
-    border-radius: 30px 0 0 30px;
-    background-image: url(../assets/album-bg.jpg);
+    grid-area: 1/1/2/2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../assets/album-bg-left.png);
+    padding: 40px 1px;
+    padding-left: 50px; //push inner pages to center
     &__inner {
       position: relative;
-      margin-top: 15px;
-      width: 95%;
+      padding: 5% 0;
+      width: 100%;
       height: 95%;
+      background-size: cover;
       background-image: url(../assets/left-page.png);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       &__img {
-        margin-top: 6%;
+        margin-top: 3%;
         @extend %img;
       }
       &__caption {
@@ -118,55 +112,47 @@ export default {
       }
       &__button {
         position: absolute;
-        bottom: 0;
-        left: 15px;
+        bottom: 5px;
+        left: 0;
         width: 15%;
         cursor: pointer;
       }
     }
   }
   &__middle {
-    grid-area: 1/3/2/5;
-    @extend %background-img;
-    background-image: url(../assets/album-bg-middle.png);
-    z-index: 1;
+    grid-area: 1/2/2/3;
   }
   &__right {
     position: relative;
-    grid-area: 1/3/2/6;
-    border: 5px solid rgb(202, 112, 100);
-    border-left: none;
-    border-radius: 0 30px 30px 0;
-    background-image: url(../assets/album-bg.jpg);
+    grid-area: 1/3/2/4;
+    @extend .wrapper__left;
+    background-image: url(../assets/album-bg-right.png);
+    background-position: right 3px;
+    padding-left: 1px;
+    padding-right: 50px;
     &__inner {
       @extend .wrapper__left__inner;
       background-image: url(../assets/right-page.png);
-      align-items: flex-start;
-      justify-content: center;
       &__img {
-        margin-top: 5%;
-        margin-left: 15%;
-        @extend %img;
+        @extend .wrapper__left__inner__img;
+        border-radius: 0 13%;
       }
       &__caption {
-        @extend %caption;
-        align-self: center;
-        margin-left: 50px;
+        @extend .wrapper__left__inner__caption;
       }
       &__button {
-        position: absolute;
-        bottom: 0;
+        @extend .wrapper__left__inner__button;
+        left: auto;
         right: 0;
-        width: 15%;
-        cursor: pointer;
       }
     }
     &__link__btn {
       position: absolute;
-      bottom: 15px;
+      bottom: 30px;
       right: 15px;
-      width: 15%;
+      width: fit-content;
       height: 3%;
+      padding: 5px;
       text-align: center;
       background-color:antiquewhite;
     }
