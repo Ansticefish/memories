@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Album :photos="photos" />
+    <Album :photos="photos"/>
   </div>
 </template>
 
 <script>
-import Album from '../components/Album'
+import Album from '../components/AlbumTest'
 
 const originalData = [
  [
