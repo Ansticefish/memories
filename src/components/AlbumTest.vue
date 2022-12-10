@@ -1,10 +1,12 @@
 <template>
   <div class="container">
-    <div class="spinner" v-if="isLoaded"></div>
+    <div class="spinner" v-if="!isLoaded">
+      
+    </div>
     <div class="wrapper" v-for="(groups, index) in photos" :key="`groups-${index}`">
       <div class="wrapper__left" v-show="page === index">
         <div class="wrapper__left__inner">
-          <img class="wrapper__left__inner__img" :src="groups[0].img" alt="" @load="loadTest">
+          <img class="wrapper__left__inner__img" :src="groups[0].img" alt="" >
           <div class="wrapper__left__inner__caption">
             {{ groups[0].caption}}
           </div>
@@ -21,7 +23,7 @@
         <div class="wrapper__right__inner">
           <img class="wrapper__right__inner__img" :src="groups[2].img" alt="">
           <div class="wrapper__right__inner__caption">{{ groups[2].caption}}</div>
-          <img class="wrapper__right__inner__img" :src="groups[3].img" alt="">
+          <img class="wrapper__right__inner__img" :src="groups[3].img" alt="" @load="imgLoaded">
           <div class="wrapper__right__inner__caption">{{ groups[3].caption}}</div>
           <img v-if="page !== photos.length - 1" @click="toNext" class="wrapper__right__inner__button"
             src="../assets/turn-page-right.png" alt="">
@@ -59,12 +61,11 @@ export default {
     toPrevious() {
       this.page -= 1
     },
-    loadTest () {
+    imgLoaded () {
       this.imgLoad += 1
       if (this.imgLoad === this.photos.length) {
         this.isLoaded = true
       }
-      console.log('loadTest')
     }
   }
 }

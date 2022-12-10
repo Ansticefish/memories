@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <nav class="wrapper__nav" v-if="open">
+    <nav class="wrapper__nav" v-if="status === 'celebration' && open">
       <router-link :to="{ name: 'sea'}">
         <img src="../assets/nav-sea.png" alt="">
       </router-link>
@@ -56,18 +56,20 @@ export default {
   name: 'Home',
   data () {
     return {
-      paintingTitle: '我們的回憶',
       instruction: {
         title: '畫作觀賞指南',
         content1: '這是由四段回憶組成的畫作。點擊畫作進入回憶，觀賞完回憶後，圖畫便會出現！',
         content2: '看完這些照片，是不是又陷入回憶中了呢？接下來請點擊玩偶看卡片，也可以點擊圖畫再重新回顧相簿喔！'
       },
-      open: false,
+      open: true,
     }
   },
   computed: {
     status() {
       return this.$store.state.status
+    },
+    paintingTitle () {
+      return this.$store.state.paintingTitle
     },
     painting () {
       return this.$store.state.painting
@@ -80,24 +82,28 @@ export default {
           console.log('initial', this.status)
           this.$router.push({ name: 'sea'})
           this.$store.commit('setStatus', 'sea')
+          this.$store.commit('setPaintingTitle', "山的回憶")
           this.$store.commit('setPainting', paintingOne)
           break;
         case 'sea':
           console.log('sea', this.status)
           this.$router.push({ name: 'mountain' })
           this.$store.commit('setStatus', 'mountain')
+          this.$store.commit('setPaintingTitle', "羽球的回憶")
           this.$store.commit('setPainting', paintingTwo)
           break;
         case 'mountain':
           console.log('mountain', this.status)
           this.$router.push({ name: 'badminton' })
           this.$store.commit('setStatus', 'badminton')
+          this.$store.commit('setPaintingTitle', "慶祝的回憶")
           this.$store.commit('setPainting', paintingThree)
           break;
         case 'badminton':
           console.log('badminton', this.status)
           this.$router.push({ name: 'celebration' })
           this.$store.commit('setStatus', 'celebration')
+          this.$store.commit('setPaintingTitle', "我們的回憶")
           this.$store.commit('setPainting', finalPainting)
           break;
         case 'celebration':
@@ -163,6 +169,7 @@ nav {
     background-color: $title-bg;
     width: fit-content;
     min-width: 100px;
+    text-align: center;
     p {
       margin: 10px;
       color: $title-color;
