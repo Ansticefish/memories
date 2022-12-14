@@ -12,10 +12,10 @@ export default new Vuex.Store({
       paintingTitle: ''
     },
     homeData: {},
-    seaAlbum: {},
-    mountainAlbum: {},
-    badmintonAlbum: {},
-    celebrationAlbum: {}
+    seaAlbum: [],
+    mountainAlbum:[],
+    badmintonAlbum: [],
+    celebrationAlbum: []
   },
   getters: {
   },
@@ -32,9 +32,10 @@ export default new Vuex.Store({
       state.homeData = newHome
     },
     setAlbumData (state, newAlbum) {
-      const { seaAlbum, mountainAlbum } = newAlbum
+      const { seaAlbum, mountainAlbum, badmintonAlbum } = newAlbum
       state.seaAlbum = seaAlbum
       state.mountainAlbum = mountainAlbum
+      state.badmintonAlbum = badmintonAlbum
     }
   },
   actions: {
@@ -42,9 +43,9 @@ export default new Vuex.Store({
       const dbRef = ref(getDatabase())
       get(child(dbRef, '/forJudy')).then((snapshot) => {
         if(snapshot.exists()) {
-          const { home, mountainAlbum, seaAlbum } = snapshot.val()
+          const { home, mountainAlbum, seaAlbum, badmintonAlbum } = snapshot.val().forJudy
           commit('setHomeData', home)
-          commit('setAlbumData', {seaAlbum, mountainAlbum})
+          commit('setAlbumData', {seaAlbum, mountainAlbum, badmintonAlbum})
           commit('setHome', state.homeData.step0)
         } else {
           console.log('No data')

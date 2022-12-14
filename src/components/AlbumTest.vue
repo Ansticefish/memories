@@ -2,7 +2,7 @@
   <div class="container">
     <div class="spinner" v-if="!isLoaded">   
     </div>
-    <div class="wrapper" v-for="(groups, index) in newPhotos" :key="`groups-${index}`">
+    <div class="wrapper" v-for="(groups, index) in photos" :key="`groups-${index}`">
       <div class="wrapper__left" v-show="page === index">
         <div class="wrapper__left__inner">
           <img class="wrapper__left__inner__img" :src="groups.one.img" alt="" >
@@ -24,10 +24,10 @@
           <div class="wrapper__right__inner__caption">{{ groups.three.caption}}</div>
           <img class="wrapper__right__inner__img" :src="groups.four.img" alt="" @load="imgLoaded">
           <div class="wrapper__right__inner__caption">{{ groups.four.caption}}</div>
-          <img v-if="page !== newPhotos.length - 1" @click="toNext" class="wrapper__right__inner__button"
+          <img v-if="page !== photos.length - 1" @click="toNext" class="wrapper__right__inner__button"
             src="../assets/turn-page-right.png" alt="">
         </div>
-        <router-link v-if="page === newPhotos.length - 1" class="wrapper__right__link" to="/forJudy">
+        <router-link v-if="page === photos.length - 1" class="wrapper__right__link" to="/forJudy">
           <div class="wrapper__right__link__btn">
             Back Home
           </div>
@@ -42,13 +42,8 @@ export default {
   name: 'Album',
   props: {
     photos: {
-      type: Object,
+      type: Array,
       required: true
-    }
-  },
-  computed: {
-    newPhotos () {
-      return Object.values(this.photos)
     }
   },
   data() {
@@ -67,7 +62,7 @@ export default {
     },
     imgLoaded () {
       this.imgLoad += 1
-      if (this.imgLoad === this.newPhotos.length) {
+      if (this.imgLoad === this.photos.length) {
         this.isLoaded = true
       }
     }
