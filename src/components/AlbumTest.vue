@@ -1,18 +1,17 @@
 <template>
   <div class="container">
-    <div class="spinner" v-if="!isLoaded">
-      
+    <div class="spinner" v-if="!isLoaded">   
     </div>
-    <div class="wrapper" v-for="(groups, index) in photos" :key="`groups-${index}`">
+    <div class="wrapper" v-for="(groups, index) in newPhotos" :key="`groups-${index}`">
       <div class="wrapper__left" v-show="page === index">
         <div class="wrapper__left__inner">
-          <img class="wrapper__left__inner__img" :src="groups[0].img" alt="" >
+          <img class="wrapper__left__inner__img" :src="groups.one.img" alt="" >
           <div class="wrapper__left__inner__caption">
-            {{ groups[0].caption}}
+            {{ groups.one.caption}}
           </div>
-          <img class="wrapper__left__inner__img" :src="groups[1].img" alt="">
+          <img class="wrapper__left__inner__img" :src="groups.two.img" alt="">
           <div class="wrapper__left__inner__caption">
-            {{ groups[1].caption}}
+            {{ groups.two.caption}}
           </div>
           <img v-if="page !== 0" @click="toPrevious" class="wrapper__left__inner__button" src="../assets/turn-page-left.png"
             alt="">
@@ -21,14 +20,14 @@
       <div class="wrapper__middle"></div>
       <div class="wrapper__right" v-show="page === index">
         <div class="wrapper__right__inner">
-          <img class="wrapper__right__inner__img" :src="groups[2].img" alt="">
-          <div class="wrapper__right__inner__caption">{{ groups[2].caption}}</div>
-          <img class="wrapper__right__inner__img" :src="groups[3].img" alt="" @load="imgLoaded">
-          <div class="wrapper__right__inner__caption">{{ groups[3].caption}}</div>
-          <img v-if="page !== photos.length - 1" @click="toNext" class="wrapper__right__inner__button"
+          <img class="wrapper__right__inner__img" :src="groups.three.img" alt="">
+          <div class="wrapper__right__inner__caption">{{ groups.three.caption}}</div>
+          <img class="wrapper__right__inner__img" :src="groups.four.img" alt="" @load="imgLoaded">
+          <div class="wrapper__right__inner__caption">{{ groups.four.caption}}</div>
+          <img v-if="page !== newPhotos.length - 1" @click="toNext" class="wrapper__right__inner__button"
             src="../assets/turn-page-right.png" alt="">
         </div>
-        <router-link v-if="page === photos.length - 1" class="wrapper__right__link" to="/">
+        <router-link v-if="page === newPhotos.length - 1" class="wrapper__right__link" to="/">
           <div class="wrapper__right__link__btn">
             Back Home
           </div>
@@ -43,8 +42,13 @@ export default {
   name: 'Album',
   props: {
     photos: {
-      type: Array,
+      type: Object,
       required: true
+    }
+  },
+  computed: {
+    newPhotos () {
+      return Object.values(this.photos)
     }
   },
   data() {
@@ -63,7 +67,7 @@ export default {
     },
     imgLoaded () {
       this.imgLoad += 1
-      if (this.imgLoad === this.photos.length) {
+      if (this.imgLoad === this.newPhotos.length) {
         this.isLoaded = true
       }
     }
