@@ -27,7 +27,7 @@
           <img v-if="page !== newPhotos.length - 1" @click="toNext" class="wrapper__right__inner__button"
             src="../assets/turn-page-right.png" alt="">
         </div>
-        <router-link v-if="page === newPhotos.length - 1" class="wrapper__right__link" to="/">
+        <router-link v-if="page === newPhotos.length - 1" class="wrapper__right__link" to="/forJudy">
           <div class="wrapper__right__link__btn">
             Back Home
           </div>
