@@ -91,6 +91,9 @@ export default {
     },
     fetchData () {
       switch (this.status) {
+        case '': 
+          this.$store.commit('setHome', this.$store.state.homeData.step0)
+          break;
         case 'initial':
           this.$store.commit('setHome', this.$store.state.homeData.step1)
           break;

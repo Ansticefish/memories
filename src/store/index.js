@@ -15,7 +15,8 @@ export default new Vuex.Store({
     seaAlbum: [],
     mountainAlbum:[],
     badmintonAlbum: [],
-    celebrationAlbum: []
+    celebrationAlbum: [],
+    login: false
   },
   getters: {
   },
@@ -40,20 +41,38 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getData ({commit, state}) {
+    async getData ({commit, state}, password) {
       const dbRef = ref(getDatabase())
-      get(child(dbRef, '/forJudy')).then((snapshot) => {
-        if(snapshot.exists()) {
-          const { home, mountainAlbum, seaAlbum, badmintonAlbum, celebrationAlbum } = snapshot.val()
-          commit('setHomeData', home)
-          commit('setAlbumData', {seaAlbum, mountainAlbum, badmintonAlbum, celebrationAlbum})
-          commit('setHome', state.homeData.step0)
+      // to check if the password is correct
+      const authenticated = await get(child(dbRef, '/forJudy/password')).then((snapshot) => {
+        if(snapshot.exists() && snapshot.val() === password) {
+          return true
         } else {
-          console.log('No data')
+          return false
         }
       }).catch((error)=> {
-        console.error(error)
+        console.log(error)
+        return false
       })
+
+      console.log(authenticated)
+      // fetch data if the password is correct
+      if (!authenticated) {
+        return state.login = false
+      } else {
+        state.login = true
+        await get(child(dbRef, '/forJudy')).then((snapshot) => {
+          if (snapshot.exists()) {
+            const { home, mountainAlbum, seaAlbum, badmintonAlbum, celebrationAlbum } = snapshot.val()
+            commit('setHomeData', home)
+            commit('setAlbumData', { seaAlbum, mountainAlbum, badmintonAlbum, celebrationAlbum })
+          } else {
+            console.log('No data')
+          }
+        }).catch((error) => {
+          console.error(error)
+        })
+      }
     }
   },
   modules: {

@@ -8,10 +8,11 @@
 export default {
   name: 'Login',
   methods: {
-    fetchData () {
-      console.log('fetch data')
-      this.$store.dispatch('getData')
-      this.$router.push('/forJudy')
+    async fetchData () {
+      await this.$store.dispatch('getData', 960818)
+      if(this.$store.state.login === true) {
+        this.$router.push('/forJudy')
+      }
     }
   }
 }
