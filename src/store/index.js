@@ -32,10 +32,11 @@ export default new Vuex.Store({
       state.homeData = newHome
     },
     setAlbumData (state, newAlbum) {
-      const { seaAlbum, mountainAlbum, badmintonAlbum } = newAlbum
+      const { seaAlbum, mountainAlbum, badmintonAlbum, celebrationAlbum } = newAlbum
       state.seaAlbum = seaAlbum
       state.mountainAlbum = mountainAlbum
       state.badmintonAlbum = badmintonAlbum
+      state.celebrationAlbum = celebrationAlbum
     }
   },
   actions: {
@@ -43,9 +44,9 @@ export default new Vuex.Store({
       const dbRef = ref(getDatabase())
       get(child(dbRef, '/forJudy')).then((snapshot) => {
         if(snapshot.exists()) {
-          const { home, mountainAlbum, seaAlbum, badmintonAlbum } = snapshot.val().forJudy
+          const { home, mountainAlbum, seaAlbum, badmintonAlbum, celebrationAlbum } = snapshot.val()
           commit('setHomeData', home)
-          commit('setAlbumData', {seaAlbum, mountainAlbum, badmintonAlbum})
+          commit('setAlbumData', {seaAlbum, mountainAlbum, badmintonAlbum, celebrationAlbum})
           commit('setHome', state.homeData.step0)
         } else {
           console.log('No data')
