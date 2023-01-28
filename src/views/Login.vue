@@ -1,8 +1,9 @@
 <template>
 <div class="container">
+  <!-- panel for password-->
   <div class="wall">
     <div class="row row1">
-      <div v-for="n in 6" class="brick" :key="n"></div>
+      <div v-for="n in 8" class="brick" :key="n"></div>
     </div>
     <!-- rows with numbers -->
     <div v-for="group, i in rows" 
@@ -34,9 +35,9 @@ export default {
     return {
       rows: [
         [-1, -1, 1, 2, 3, -1, -1],
-        [-1, -1, 4, 5, -1, -1],
+        [-1, -1, -1, 4, 5, -1, -1, -1],
         [-1, -1, 6, 7, 8, -1, -1],
-        [-1, -1, 9, 0, -1, -1],
+        [-1, -1, -1, 9, 0, -1, -1, -1],
       ],
       code: '',
       bricksStyle: [
@@ -103,14 +104,16 @@ export default {
       margin: 0.1vw;
       text-align: center;
       background-color: #4E9797;
+      box-shadow: 9px 4px 12px rgba(0, 0, 0, 0.2);
       transform-style: preserve-3d;
       color: #e3f1f1;
-      transition: all 1s ease-in-out;
+      transition: all 0.8s ease-in-out;
     }
     // set up hover effect for input panel
     [ class*="num" ]:not(.num--1):hover {
       font-size: 1.5rem;
       background-color: #438181;
+      box-shadow: 4px 10px 6px rgba(0, 0, 0, 0.1);
       transform: translateZ(3vw) ;
       transform-origin: left;
       cursor: pointer;
@@ -118,7 +121,7 @@ export default {
     }
   }
   .row1, .row3, .row5 {
-    margin-left: 5vw;
+    margin-left: -10vw;
   }
 }
 </style>
