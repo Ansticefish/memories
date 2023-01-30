@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <!-- panel for password-->
-  <div class="wall">
+  <div :class="['wall', 'password', {'clicked': matchboxClicked}]">
     <div class="row row1">
       <div v-for="n in 8" class="brick" :key="n"></div>
     </div>
@@ -25,12 +25,53 @@
       </div>
     </div>
   </div>
+  <!-- panel for rooms -->
+  <div :class="['wall', 'rooms', {'clicked': matchboxClicked}]">
+    <div 
+      :class="['row', {'row-odd' : n % 2 === 1}, 
+      { 'row-even': n % 2 === 0}]" 
+      v-for="n in 6" 
+      :key="n">
+      <div 
+        class="brick" 
+        v-for="n in 8" 
+        :key="n">
+      </div>
+    </div>
+  </div>
+  <div class="buttons">
+    <Candle class="candle"/>
+    <div 
+      :class="['matchbox', {'clicked': matchboxClicked}]"
+      @click="selectRoom" >
+      <img 
+        src="../assets/matchbox-layer1.png" alt="matchbox" class="layer1">
+      <img 
+        src="../assets/matchbox-layer2.png" alt="matchbox" class="layer2">
+    </div>
+    <div class="paper">
+      <div 
+      class="background">
+      </div>
+      <p class="code"> 
+        {{ code }}
+      </p>
+      <div 
+      class="filter">
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
+import Candle from '../components/Candle.vue'
+
 export default {
   name: 'Login',
+  components: {
+    Candle,
+  }, 
   data () {
     return {
       rows: [
@@ -46,6 +87,7 @@ export default {
       bricksMove: [
         '', '', '', '', '', '', '', '', ''
       ],
+      matchboxClicked: false
     }
   },
   methods: {
@@ -83,6 +125,9 @@ export default {
         this.$set(this.bricksStyle, i, '')
         this.bricksMove[i] = ''
       }
+    },
+    selectRoom () {
+      this.matchboxClicked = !this.matchboxClicked
     }
   }
 }
@@ -92,7 +137,7 @@ export default {
 <style lang="scss" scoped>
 .wall {
   width: 100vw;
-  margin: 10vh auto;
+  margin: 10vh auto 0;
   overflow: hidden;
   .row {
     display: flex;
@@ -120,8 +165,89 @@ export default {
       z-index: 5;
     }
   }
-  .row1, .row3, .row5 {
+  .row1, .row3, .row5, .row-odd {
     margin-left: -10vw;
+  }
+   &.password {
+    transition: transform 1s ease-in-out, width 1s 2s;
+    &.clicked {
+      width: 0;
+      transition: width 1s;
+    }
+  }
+  &.rooms {
+    position: relative;
+    top: -41vh;
+    transform: rotateY(90deg);
+    transition: transform 3s ease-in-out;
+    &.clicked {
+      transform: rotateY(-180deg);
+    }
+    & .brick {
+      background: #957676;
+    }
+  }
+}
+.buttons {
+  height: fit-content;
+  margin-top: -45vh;
+  display: flex;
+  align-items: flex-end;
+  .candle {
+    width: 50vw;
+    min-width: 300px;
+    max-width: 500px;
+    margin-right: -22vw;
+  }
+  .matchbox {
+    position: relative;
+    width: 30vw;
+    max-width: 250px;
+    z-index: 1;
+    &:hover, &.clicked {
+      cursor: pointer;
+      & .layer2 {
+        transform: translate(35px, 8px);
+      }
+    }
+    .layer1, .layer2 {
+      width: 100%;
+      transition: all 1s;
+    }
+    .layer1 {
+      position: absolute;
+      top: -6%;
+      left: -18%;
+      z-index: 1;
+    }
+  }
+  .paper {
+    width: 35vw;
+    height: 20vw;
+    max-width: 400px;
+    max-height: 250px;
+    margin-left: -5vw;
+    transform: rotate(9.47deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .background, .filter{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #8E7D62;
+    }
+    .code {
+      position: relative;
+      color: #ffffff;
+      font-size: 1.5rem;
+      letter-spacing: 0.8rem;
+    }
+    .filter {
+      background: linear-gradient(269.8deg, rgba(0, 0, 0, 0.8) -25.26%, rgba(149, 0, 0, 0) 103.49%);
+    }
   }
 }
 </style>
