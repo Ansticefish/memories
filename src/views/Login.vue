@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <!-- panel for password-->
-  <div :class="['wall', 'password', {'clicked': matchboxClicked}]">
+  <div :class="['wall', 'front', {'clicked': matchboxClicked}]">
     <div class="row row1">
       <div v-for="n in 8" class="brick" :key="n"></div>
     </div>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <!-- panel for rooms -->
-  <div :class="['wall', 'rooms', {'clicked': matchboxClicked}]">
+  <div :class="['wall', 'back', {'clicked': matchboxClicked}]">
     <div 
       :class="['row', {'row-odd' : n % 2 === 1}, 
       { 'row-even': n % 2 === 0}]" 
@@ -37,6 +37,21 @@
         v-for="n in 8" 
         :key="n">
       </div>
+    </div>
+    <div class="rooms">
+      <div class="room" 
+        v-for="room in rooms"
+        :key="room.id">
+        <Candle 
+        :size="'small'" 
+        :colorSm="room.color" 
+        class="candle-sm" />
+        <div class="tag">
+          {{ room.name }}
+        </div>
+        <div class="shelf">
+        </div>
+      </div>   
     </div>
   </div>
   <div class="buttons">
@@ -87,7 +102,27 @@ export default {
       bricksMove: [
         '', '', '', '', '', '', '', '', ''
       ],
-      matchboxClicked: false
+      matchboxClicked: false,
+      rooms: [
+        {
+          id: 1,
+          name: 'Sample',
+          color: {
+            mainColor: '#A42323',
+            secondColor: '#A25C5C',
+            heartColor: '#822020',
+          }
+        },
+        {
+          id: 2,
+          name: '9303的回憶',
+          color: {
+            mainColor: '#E3D06A',
+            secondColor: '#EEDC7D',
+            heartColor: '#DCC340',
+          }
+        }
+      ]
     }
   },
   methods: {
@@ -168,23 +203,67 @@ export default {
   .row1, .row3, .row5, .row-odd {
     margin-left: -10vw;
   }
-   &.password {
+   &.front {
     transition: transform 1s ease-in-out, width 1s 2s;
     &.clicked {
       width: 0;
       transition: width 1s;
     }
   }
-  &.rooms {
+  &.back {
     position: relative;
     top: -41vh;
     transform: rotateY(90deg);
-    transition: transform 3s ease-in-out;
+    transition: transform 2s ease-in-out;
     &.clicked {
-      transform: rotateY(-180deg);
+      transform: rotateY(0deg);
     }
-    & .brick {
+    .row>.brick {
       background: #957676;
+    }
+    .rooms {
+      position: absolute;
+      top: 0;
+      left: 3vw;
+      width: 100vw;
+      display: flex;
+      flex-wrap: wrap;
+      .room {
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+        margin: 0 5px;
+        padding: 15px;
+        display: flex;
+        align-items: flex-end;
+        .candle-sm {
+          width: 3vw;
+          max-width: 30px;
+          margin-right: 15px;
+          z-index: 1;
+        }
+        .tag {
+          width: fit-content;
+          background: #F6F6EB;
+          margin-bottom: 10px;
+          padding: 3px 8px;
+          text-align: center;
+          color: #887878;
+          font-size: 1vw;
+          letter-spacing: 0.2rem;
+          word-break: keep-all;
+          z-index: 1;
+        }
+        .shelf {
+          position: absolute;
+          bottom: 15px;
+          left: 0px;
+          width: 100%;
+          height: 3vh;
+          background: #805151;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+      }  
     }
   }
 }
