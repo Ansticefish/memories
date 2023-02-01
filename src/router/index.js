@@ -17,6 +17,11 @@ const routes = [
     component: JudyHome
   },
   {
+    path: '/sample',
+    name: 'sample',
+    component: JudyHome
+  },
+  {
     path: '/album/sea',
     name: 'sea',
     component: () => import('../views/SeaAlbum')

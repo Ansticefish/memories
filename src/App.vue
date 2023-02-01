@@ -24,6 +24,7 @@ body {
   vertical-align: baseline;
   box-sizing: border-box;
   background-color: $background-color;
+  overflow: hidden;
 }
 
 </style>

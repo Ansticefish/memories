@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="login">
   <!-- panel for password-->
   <div :class="['wall', 'front', {'clicked': matchboxClicked}]">
     <div class="row row1">
@@ -39,12 +39,15 @@
       </div>
     </div>
     <div class="rooms">
-      <div class="room" 
+      <div :class="['room', {'selected': selectedRoom === room.route}]" 
         v-for="room in rooms"
-        :key="room.id">
+        :key="room.id"
+        @click="switchRoom(room.route, room.color)"
+        >
         <Candle 
         :size="'small'" 
-        :colorSm="room.color" 
+        :colorSm="room.colorSm" 
+        :selected="selectedRoom === room.route"
         class="candle-sm" />
         <div class="tag">
           {{ room.name }}
@@ -55,10 +58,12 @@
     </div>
   </div>
   <div class="buttons">
-    <Candle class="candle"/>
+    <Candle 
+      :color="candleColor"
+      class="candle"/>
     <div 
       :class="['matchbox', {'clicked': matchboxClicked}]"
-      @click="selectRoom" >
+      @click="flipWalls" >
       <img 
         src="../assets/matchbox-layer1.png" alt="matchbox" class="layer1">
       <img 
@@ -70,6 +75,9 @@
       </div>
       <p class="code"> 
         {{ code }}
+      </p>
+      <p class="name">
+        {{ selectedRoom }}
       </p>
       <div 
       class="filter">
@@ -95,19 +103,20 @@ export default {
         [-1, -1, 6, 7, 8, -1, -1],
         [-1, -1, -1, 9, 0, -1, -1, -1],
       ],
-      code: '',
-      bricksStyle: [
-        '', '', '', '', '', '', '', '', ''
-      ],
-      bricksMove: [
-        '', '', '', '', '', '', '', '', ''
-      ],
-      matchboxClicked: false,
       rooms: [
         {
           id: 1,
           name: 'Sample',
+          route: 'sample',
           color: {
+            mainColor: '#680505',
+            fireColor: '#951818',
+            gradient: '#F04A4A',
+            light1: '#FC5E5E',
+            light2: '#EF9696',
+            light3: '#F4F4F4'
+          },
+          colorSm: {
             mainColor: '#A42323',
             secondColor: '#A25C5C',
             heartColor: '#822020',
@@ -116,20 +125,42 @@ export default {
         {
           id: 2,
           name: '9303的回憶',
+          route: 'forJudy', 
           color: {
+            mainColor: '#E3D06A',
+            fireColor: '#F6CF01',
+            gradient: '#F6DA41',
+            light1: '#FCF65E',
+            light2: '#F6CF43',
+            light3: '#F4F4F4'
+          },
+          colorSm: {
             mainColor: '#E3D06A',
             secondColor: '#EEDC7D',
             heartColor: '#DCC340',
           }
         }
-      ]
+      ],
+      bricksStyle: [
+        '', '', '', '', '', '', '', '', ''
+      ],
+      bricksMove: [
+        '', '', '', '', '', '', '', '', ''
+      ],
+      matchboxClicked: false,
+      code: '',
+      selectedRoom: 'sample',
+      candleColor: ''
     }
+  },
+  beforeMount () {
+    this.candleColor = this.rooms[0].color
   },
   methods: {
     async fetchData (code) {
-      await this.$store.dispatch('getData', Number(code))
+      await this.$store.dispatch('getData', [Number(code), this.selectedRoom])
       if(this.$store.state.login === true) {
-        this.$router.push('/forJudy')
+        this.$router.push(`/${this.selectedRoom}`)
       } else {
         this.code = ''
         this.resetBricks()
@@ -161,8 +192,17 @@ export default {
         this.bricksMove[i] = ''
       }
     },
-    selectRoom () {
+    flipWalls () {
       this.matchboxClicked = !this.matchboxClicked
+      this.code = ''
+      this.resetBricks()
+    },
+    switchRoom (newRoom, newColor) {
+      this.selectedRoom = newRoom
+      this.candleColor = newColor
+      setTimeout (() => {
+        this.matchboxClicked = false
+      }, 1000)
     }
   }
 }
@@ -170,6 +210,13 @@ export default {
 
 
 <style lang="scss" scoped>
+.login {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(19, 18, 18);
+  border: 1px solid black;
+  overflow: hidden;
+}
 .wall {
   width: 100vw;
   margin: 10vh auto 0;
@@ -236,6 +283,19 @@ export default {
         padding: 15px;
         display: flex;
         align-items: flex-end;
+        opacity: 0.6;
+        transition: transform 0.5s ease-in;
+        &:hover {
+          cursor: pointer;
+          border: 1px solid transparent;
+          & .candle-sm, & .tag {
+            opacity: 0.8;
+          }
+        }
+        &.selected {
+          transform: rotate(-5deg);
+          opacity: 1;
+        }
         .candle-sm {
           width: 3vw;
           max-width: 30px;
@@ -323,6 +383,13 @@ export default {
       color: #ffffff;
       font-size: 1.5rem;
       letter-spacing: 0.8rem;
+    }
+    .name {
+      position: absolute;
+      bottom: -15px;
+      right: 15px;
+      color: #f8fc02;
+      letter-spacing: 0.2rem;
     }
     .filter {
       background: linear-gradient(269.8deg, rgba(0, 0, 0, 0.8) -25.26%, rgba(149, 0, 0, 0) 103.49%);

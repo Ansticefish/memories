@@ -41,11 +41,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async getData ({commit, state}, password) {
+    async getData ({commit, state}, data) {
       const dbRef = ref(getDatabase())
       // to check if the password is correct
-      const authenticated = await get(child(dbRef, '/forJudy/password')).then((snapshot) => {
-        if(snapshot.exists() && snapshot.val() === password) {
+      const authenticated = await get(child(dbRef, `/${data[1]}/password`)).then((snapshot) => {
+        if(snapshot.exists() && snapshot.val() === data[0]) {
           return true
         } else {
           return false
@@ -61,7 +61,7 @@ export default new Vuex.Store({
         return state.login = false
       } else {
         state.login = true
-        await get(child(dbRef, '/forJudy')).then((snapshot) => {
+        await get(child(dbRef, `/${data[1]}`)).then((snapshot) => {
           if (snapshot.exists()) {
             const { home, mountainAlbum, seaAlbum, badmintonAlbum, celebrationAlbum } = snapshot.val()
             commit('setHomeData', home)
