@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <div class="spinner" v-if="!isLoaded">   
-    </div>
+    <Spinner v-if="!isLoaded" />   
     <div class="wrapper" v-for="(groups, index) in photos" :key="`groups-${index}`">
       <div class="wrapper__left" v-show="page === index">
         <div class="wrapper__left__inner">
@@ -38,8 +37,13 @@
 </template>
 
 <script>
+import Spinner from './Spinner.vue'
+
 export default {
   name: 'Album',
+  components: {
+    Spinner
+  },
   props: {
     photos: {
       type: Array,
@@ -89,16 +93,6 @@ export default {
 
 .container {
   box-sizing: border-box;
-}
-
-.spinner {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background-color: black;
-  z-index: 10000;
 }
 
 .wrapper {
