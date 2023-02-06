@@ -20,6 +20,7 @@
           <stop :stop-color="colorBig.light1" stop-opacity="0.49" />
           <stop offset="0.362388" :stop-color="colorBig.light2" stop-opacity="0.26" />
           <stop offset="1" :stop-color="colorBig.light3" stop-opacity="0" />
+          <animate attributeName="r" values="1;0.7;1" dur="5s" repeatCount="indefinite" />
         </radialGradient>
       </defs>
     </svg>
@@ -97,6 +98,7 @@ export default {
     width: 100px;
     aspect-ratio: 1;
     background: radial-gradient(36.86% 42.42% at 56.36% 50%, #FFF8F8 0%, rgba(217, 217, 217, 0) 100%);
+    z-index: -1;
   }
 }
 </style>

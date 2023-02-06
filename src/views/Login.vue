@@ -184,7 +184,7 @@ export default {
       }
     },
     setStyle (x, bg) {
-      return `transform: translateX(${x}vw) ; background: ${bg}`
+      return ` transform: translateX(${x}vw) translateZ(${-x}vw) ; background: ${bg}`
     },
     resetBricks () {
       for (let i = -1; i < this.bricksMove.length; i++) {
