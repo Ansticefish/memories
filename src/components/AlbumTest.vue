@@ -26,11 +26,9 @@
           <img v-if="page !== photos.length - 1" @click="toNext" class="wrapper__right__inner__button"
             src="../assets/turn-page-right.png" alt="">
         </div>
-        <router-link v-if="page === photos.length - 1" class="wrapper__right__link" to="/forJudy">
-          <div class="wrapper__right__link__btn">
-            Back Home
-          </div>
-        </router-link>
+        <div v-if="page === photos.length - 1" class="wrapper__right__link" @click="$router.go(-1)">
+          Back Home
+        </div>
       </div>
     </div>
   </div> 
@@ -194,7 +192,7 @@ export default {
       }
     }
 
-    &__link__btn {
+    &__link {
       position: absolute;
       bottom: 30px;
       right: 15px;
@@ -203,6 +201,7 @@ export default {
       padding: 5px;
       text-align: center;
       background-color: antiquewhite;
+      cursor: pointer;
     }
   }
 }
