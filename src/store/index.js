@@ -16,6 +16,7 @@ export default new Vuex.Store({
     mountainAlbum:[],
     badmintonAlbum: [],
     celebrationAlbum: [],
+    cards: {},
     login: false
   },
   getters: {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
       state.badmintonAlbum = badmintonAlbum
       state.celebrationAlbum = celebrationAlbum
     },
+    setCardData(state, newCard) {
+      state.cards = newCard
+    }
   },
   actions: {
     async getData ({commit, state}, data) {
@@ -63,9 +67,10 @@ export default new Vuex.Store({
         state.login = true
         await get(child(dbRef, `/${data[1]}`)).then((snapshot) => {
           if (snapshot.exists()) {
-            const { home, mountainAlbum, seaAlbum, badmintonAlbum, celebrationAlbum } = snapshot.val()
+            const { home, mountainAlbum, seaAlbum, badmintonAlbum, celebrationAlbum, cards } = snapshot.val()
             commit('setHomeData', home)
             commit('setAlbumData', { seaAlbum, mountainAlbum, badmintonAlbum, celebrationAlbum })
+            commit('setCardData', cards)
           } else {
             console.log('No data')
           }

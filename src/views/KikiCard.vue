@@ -1,23 +1,7 @@
 <template>
   <div>
-    <Card :icon="icon">
-      媺媺：
-      <p>
-        生日快樂，今天晚餐吃啥，開心嗎？這些日常的對話即使無法回溯，每當偶爾跟你聊聊時，還是很想知道。透過小小的問候，多了解你的生活。
-      </p>
-      <p>
-        謝謝這些年你總是我生命中智者的時光，那些購物那些給予我諸多人生建議的聊聊，還謝謝你對我們很好，我們都知道💛
-      </p>
-      <p>
-        願26歲的你，可以找到想做（喜歡）的事情，沒有也沒關係，未來還有很多時間可以找，我們也會一直一直陪著你。找尋的途中可能會有很多次如上週見面的那樣崩潰時刻，我還是奢侈的希望你找尋的途中，可以有許多開心、驚喜的故事。
-      </p>
-      <p>
-        週二下班我去買了衣服，與我媽隨口聊聊中，他又叫我學學萬媺??（他叫你萬媺我都好想笑）
-        阿我知道阿，在我和我媽的心中，你真的是很棒的女孩紙，未來，我也會繼續說給你聽！: )
-      </p>
-      <p>
-        by 琪雅
-      </p>
+    <Card :icon="icon" class="card">
+      {{ content }}
     </Card>
   </div>
 </template>
@@ -32,8 +16,16 @@ export default {
   },
   data () {
     return {
-      icon: require('../assets/kiki.png')
+      icon: require('../assets/kiki.png'),
+      content: this.$store.state.cards.kiki
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.card {
+  // add line breaks
+  white-space: pre-line;
+}
+</style>

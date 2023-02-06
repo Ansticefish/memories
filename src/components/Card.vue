@@ -2,9 +2,9 @@
   <div class="wrapper">
     <div class="wrapper__card">
       <slot></slot>
-      <router-link to="/">
+      <div class="btn" @click="$router.go(-1)">
         Back Home
-      </router-link>
+      </div>
     </div>
     <img :src="icon" alt="">
   </div>
@@ -51,7 +51,7 @@ export default {
     & p {
       text-indent: 2em;
     }
-    & a {
+    .btn {
       position: absolute;
       bottom: -10px;
       right: 5px;
@@ -59,6 +59,7 @@ export default {
       background-color: rgb(197, 216, 241);
       text-decoration: none;
       border-radius: 15px;
+      cursor: pointer;
     }
   }
   & img {

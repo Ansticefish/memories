@@ -159,6 +159,7 @@ export default {
     this.$store.commit('setHomeData', {})
     this.$store.commit('setAlbumData', {'seaAlbum':[], 'mountainAlbum':[], 'badmintonAlbum':[], 'celebration':[]})
     this.$store.commit('setHome', {'status': '', 'painting': '', 'paintingTitle': ''})
+    this.$store.commit('setCardData', {})
   },
   methods: {
     async fetchData (code) {
