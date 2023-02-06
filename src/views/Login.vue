@@ -155,6 +155,10 @@ export default {
   },
   beforeMount () {
     this.candleColor = this.rooms[0].color
+    // reset data when users go back to login page
+    this.$store.commit('setHomeData', {})
+    this.$store.commit('setAlbumData', {'seaAlbum':[], 'mountainAlbum':[], 'badmintonAlbum':[], 'celebration':[]})
+    this.$store.commit('setHome', {'status': '', 'painting': '', 'paintingTitle': ''})
   },
   methods: {
     async fetchData (code) {

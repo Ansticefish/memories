@@ -38,7 +38,7 @@ export default new Vuex.Store({
       state.mountainAlbum = mountainAlbum
       state.badmintonAlbum = badmintonAlbum
       state.celebrationAlbum = celebrationAlbum
-    }
+    },
   },
   actions: {
     async getData ({commit, state}, data) {
