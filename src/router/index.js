@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import JudyHome from '../views/JudyHome.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -63,4 +64,15 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+
+  if (store.state.login === false && to.name !== 'login') {
+    next({ name: 'login' })
+  }
+
+  next()
+})
+
+
 export default router
+
