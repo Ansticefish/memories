@@ -83,17 +83,22 @@
       class="filter">
       </div>
     </div>
+    <div class="instruction" >
+      <Popup/>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
 import Candle from '../components/Candle.vue'
+import Popup from '../components/Popup.vue'
 
 export default {
   name: 'Login',
   components: {
     Candle,
+    Popup
   }, 
   data () {
     return {
@@ -150,7 +155,7 @@ export default {
       matchboxClicked: false,
       code: '',
       selectedRoom: 'sample',
-      candleColor: ''
+      candleColor: '',
     }
   },
   beforeMount () {
@@ -401,5 +406,22 @@ export default {
       background: linear-gradient(269.8deg, rgba(0, 0, 0, 0.8) -25.26%, rgba(149, 0, 0, 0) 103.49%);
     }
   }
+}
+.instruction {
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(327.54deg, rgba(0, 0, 0, 0.8) -62.42%, rgba(149, 0, 0, 0) 91.58%);
+    z-index: 110;
+    border: 1px solid red;
+  }
+}
+
+.candle-cursor {
+  position: absolute;
+  z-index: 200;
 }
 </style>
