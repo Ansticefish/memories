@@ -155,6 +155,7 @@ nav {
 .wrapper__painting {
   margin: 0 auto;
   width: 80%;
+  max-width: 600px;
   height: fit-content;
   &__image {
     margin: 50px auto;
@@ -181,7 +182,7 @@ nav {
 }
 
 .wrapper__line {
-  margin-top: 50px;
+  margin-top: 10vh;
   width: 100%;
   height: 10px;
   background-image: url(../assets/warning-line.png);
@@ -189,9 +190,9 @@ nav {
 
 .wrapper__instruction {
   position: absolute;
-  bottom: 30px;
+  bottom: 1vh;
   width: 50%;
-  max-width: 500px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;

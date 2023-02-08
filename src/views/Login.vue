@@ -247,15 +247,18 @@ export default {
       color: #e3f1f1;
       transition: all 0.8s ease-in-out;
     }
-    // set up hover effect for input panel
-    [ class*="num" ]:not(.num--1):hover {
-      font-size: 1.5rem;
-      background-color: #438181;
-      box-shadow: 4px 10px 6px rgba(0, 0, 0, 0.1);
-      transform: translateZ(3vw) ;
-      transform-origin: left;
-      cursor: pointer;
-      z-index: 5;
+    [ class*="num"]:not(.num--1) {
+      z-index: 1;
+      // set up hover effect for input panel
+      &:hover {
+        font-size: 1.5rem;
+        background-color: #438181;
+        box-shadow: 4px 10px 6px rgba(0, 0, 0, 0.1);
+        transform: translateZ(3vw) ;
+        transform-origin: left;
+        cursor: pointer;
+        z-index: 5;
+      }
     }
   }
   .row1, .row3, .row5, .row-odd {
@@ -273,6 +276,7 @@ export default {
     top: -41vh;
     transform: rotateY(90deg);
     transition: transform 2s ease-in-out;
+    z-index: 1;
     &.clicked {
       transform: rotateY(0deg);
     }
@@ -339,8 +343,9 @@ export default {
   }
 }
 .buttons {
-  height: fit-content;
-  margin-top: -45vh;
+  position: absolute;
+  bottom: 2vh;
+  height: 2vh;
   display: flex;
   align-items: flex-end;
   .candle {
@@ -377,7 +382,7 @@ export default {
     max-width: 400px;
     max-height: 250px;
     margin-left: -5vw;
-    transform: rotate(9.47deg);
+    transform: rotate(-5deg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -406,22 +411,5 @@ export default {
       background: linear-gradient(269.8deg, rgba(0, 0, 0, 0.8) -25.26%, rgba(149, 0, 0, 0) 103.49%);
     }
   }
-}
-.instruction {
-  .mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(327.54deg, rgba(0, 0, 0, 0.8) -62.42%, rgba(149, 0, 0, 0) 91.58%);
-    z-index: 110;
-    border: 1px solid red;
-  }
-}
-
-.candle-cursor {
-  position: absolute;
-  z-index: 200;
 }
 </style>

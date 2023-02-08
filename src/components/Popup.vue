@@ -49,7 +49,7 @@ export default {
       // this.$refs.candle.style.left = e.clientX+ 'px'
       // this.$refs.candle.style.top = e.clientY + 'px'
       // should be fixed
-      console.log(e.target)
+      return e.target
     }
   }
 }

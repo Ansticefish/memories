@@ -75,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 %img {
   width: 80%;
-  max-height: 380px;
+  max-height: 30vh;
   object-fit: cover;
   border-radius: 13% 0;
 }
@@ -97,12 +97,14 @@ export default {
   position: absolute; //to make each album at the same position
   left: 0;
   right: 0;
-  margin: 30px auto;
+  // make the album vertically center
+  top: 0;
+  bottom: 0;
+  margin: auto;
   width: 95vw;
-  max-width: 1100px;
+  max-width: 100vh;
   display: grid;
   grid-template-columns: 1.5fr 3px 1.5fr;
-
   &__left {
     grid-area: 1/1/2/2;
     background-size: cover;
@@ -138,6 +140,7 @@ export default {
         width: 20%;
         cursor: pointer;
         animation: buttonLeft 1s ease-in alternate infinite;
+        z-index: 1;
       }
 
       // // flip page animation experiment

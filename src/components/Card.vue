@@ -31,7 +31,7 @@ export default {
 .wrapper {
   position: relative;
   width: 100vw;
-  height: 80vh;
+  height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
